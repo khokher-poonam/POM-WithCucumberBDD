@@ -3,45 +3,42 @@ package StepDefinitions;
 import com.qa.Pages.HomePage;
 import com.qa.Pages.LoginPage;
 import com.qa.Util.TestBase;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import junit.framework.Assert;
+import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
-
+import org.testng.Assert;
 import java.util.Properties;
 
 public class LoginStepDef extends TestBase {
-    static WebDriver driver=null;
-     LoginPage loginPage=new LoginPage(driver);
+    public WebDriver driver;
+     LoginPage loginPage;
 Properties prop;
 HomePage homePage;
-
-
-
+    TestBase tb;
 
     @Given("user opens browser")
     public void user_opens_browser() throws InterruptedException {
-       TestBase.initialization();
-//         loginPage=new LoginPage(driver);
 
-        Thread.sleep(3000);
+        tb=new TestBase();
+        tb.initialization();
+         loginPage=new LoginPage(tb);
+         homePage=new HomePage(tb);
+         Thread.sleep(3000);
     }
 
-//    @Then ("click on supportpage")
-//    public void click_on_supportpage()
-//    {
-//        loginPage=new LoginPage(driver);
-//        loginPage.setSupport();
-//    }
-
-
-    @Then("user is on zoom login page")
-    public void user_is_on_zoom_login_page() throws InterruptedException {
-    loginPage=new LoginPage(driver);
-       String title=loginPage.validateloginpageTitle();
-       Assert.assertEquals("Sign In | Zoom" , title);
+    @Then("verify zoom login page title")
+    public void verify_zoom_login_page_title()  {
+        String actualTitle=loginPage.validateLoginPageTitle();
+        String expectedTitle="Sign In | Zoom";
+      // Assert.assertEquals(ExpectedTitle , title);
+        if(actualTitle.equals(expectedTitle))
+        {
+            Assert.assertTrue(true);
+        }
+        else {
+            Assert.assertTrue(false);
+        }
     }
-    @Then("user enters username and password")
+    @And("user enters username and password")
     public void user_enters_username_and_password(){
 homePage=loginPage.login_details(prop.getProperty("username") ,prop.getProperty("password"));
 	 }

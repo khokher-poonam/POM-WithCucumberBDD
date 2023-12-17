@@ -8,13 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage  extends TestBase {
  WebDriver driver;
-
-//Locators
-//private By emailLocator=By.id("email");
-//    private By passwordLocator=By.id("password");
-//    private By zoomlogoLocator=By.xpath("//div[@id=\"app\"]//a//img");
-//
-//    private By loginBtnLocator=By.id("js_btn_login");
+ TestBase tb;
 
 @FindBy(id="email")
 WebElement emailLocator;
@@ -27,14 +21,15 @@ WebElement emailLocator;
     @FindBy(xpath="//span[contains(text(),'Support')]")
     WebElement support;
 //constructor
-    public LoginPage(WebDriver driver)
+    public LoginPage(TestBase tb)
     {
-        this.driver=driver;
+        this.tb=tb;
+        this.driver=tb.driver;
         PageFactory.initElements(driver,this);
     }
-  public String  validateloginpageTitle()
+  public String validateLoginPageTitle()
   {
-      return driver.getTitle();
+       return driver.getTitle();
   }
 public void setSupport()
 {
@@ -50,7 +45,7 @@ public HomePage login_details(String un,String pass)
     emailLocator.sendKeys(un);
     passwordLocator.sendKeys(pass);
     loginBtnLocator.click();
-    return new HomePage(driver);
+    return new HomePage(tb);
 
 
 }

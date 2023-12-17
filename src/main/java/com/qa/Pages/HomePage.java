@@ -10,20 +10,17 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends TestBase {
  WebDriver driver;
-
-//    private  By productLocator= By.id("btnNewProducts");
-//    private  By teamchatLocator= By.id("//li[@class='productSubSection']//div//a[contains(text(),\"Team Chat\")]");
-//    private  By solutionLocator= By.id("btnNewSolutions");
-
+    TestBase tb;
     @FindBy(id="btnNewProducts")
     WebElement productLocator;
     @FindBy(id="//li[@class='productSubSection']//div//a[contains(text(),\\\"Team Chat\\\")]")
     WebElement teamchatLocator;
     @FindBy(id="btnNewSolutions")
     WebElement solutionLocator;
-    public HomePage(WebDriver driver)
+    public HomePage(TestBase tb)
     {
-        this.driver=driver;
+        this.tb=tb;
+        this.driver=tb.driver;
         PageFactory.initElements(driver,this);
     }
 public  String homepageTitle()
